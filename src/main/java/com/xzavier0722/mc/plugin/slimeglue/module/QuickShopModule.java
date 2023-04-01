@@ -7,7 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.Plugin;
-import org.maxgamer.quickshop.api.QuickShopAPI;
+import  com.ghostchu.quickshop.api.QuickShopAPI;
 
 import javax.annotation.Nonnull;
 import java.lang.reflect.InvocationTargetException;
