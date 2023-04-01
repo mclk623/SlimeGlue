@@ -118,7 +118,7 @@ public class QuickShopModule extends ACompatibilityModule {
                 SlimeGlue.logger().w("Your QuickShop-Reremake is outdated! Please update to latest version for better performance on checking QuickShop.");
 
                 try {
-                    var shopAPIMethod = Class.forName("com.ghostchu.quickshop.QuickShopAPI").getDeclaredMethod("getShopAPI");
+                    var shopAPIMethod = Class.forName("com.ghostchu.quickshop.api").getDeclaredMethod("getShopAPI");
                     shopAPIMethod.setAccessible(true);
                     shopAPI = shopAPIMethod.invoke(null);
                 } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException |
@@ -130,7 +130,8 @@ public class QuickShopModule extends ACompatibilityModule {
                 if (sub >= 8 && last >= 2) {
                     // For 5.0.0-
                     try {
-                        qsMethod = Class.forName("com.ghostchu.quickshop.api.ShopAPI").getDeclaredMethod("getShop", Location.class);
+                        
+                        qsMethod = Class.forName("com.ghostchu.quickshop.api.shop").getDeclaredMethod("getShop", Location.class);
                         qsMethod.setAccessible(true);
                     } catch (ClassNotFoundException | NoSuchMethodException e) {
                         SlimeGlue.logger().w("Unable to integrate Quickshop-Reremake " + version + ", Please update to latest version!");
@@ -139,7 +140,7 @@ public class QuickShopModule extends ACompatibilityModule {
                 } else {
                     // For 4.0.8-
                     try {
-                        qsMethod = Class.forName("com.ghostchu.quickshop.api.ShopAPI").getDeclaredMethod("getShopWithCaching", Location.class);
+                        qsMethod = Class.forName("com.ghostchu.quickshop.api.shop").getDeclaredMethod("getShopWithCaching", Location.class);
                         qsMethod.setAccessible(true);
                     } catch (ClassNotFoundException | NoSuchMethodException e) {
                         SlimeGlue.logger().w("Unable to integrate Quickshop-Reremake " + version + ", Please update to latest version!");
