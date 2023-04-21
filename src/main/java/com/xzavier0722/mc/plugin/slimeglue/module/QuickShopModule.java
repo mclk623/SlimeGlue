@@ -7,7 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.Plugin;
-import com.ghostchu.quickshop.api.QuickShopAPI;
+import com.ghostchu.quickshop.api.shop.Shop;
 
 import javax.annotation.Nonnull;
 import java.lang.reflect.InvocationTargetException;
@@ -44,7 +44,7 @@ public class QuickShopModule extends ACompatibilityModule {
     }
 
     private UUID getQuickshopOwner(@Nonnull Location l) {
-        var qsPlugin = Bukkit.getPluginManager().getPlugin("QuickShop");
+        var qsPlugin = Bukkit.getPluginManager().getPlugin("QuickShop-Hikari");
 
         if (qsPlugin == null) {
             return null;
@@ -118,12 +118,12 @@ public class QuickShopModule extends ACompatibilityModule {
                 SlimeGlue.logger().w("Your QuickShop-Reremake is outdated! Please update to latest version for better performance on checking QuickShop.");
 
                 try {
-                    var shopAPIMethod = Class.forName("com.ghostchu.quickshop.api").getDeclaredMethod("getShopAPI");
+                    var shopAPIMethod = Class.forName("com.ghostchu.quickshop.api.shop.Shop").getDeclaredMethod("getShopAPI");
                     shopAPIMethod.setAccessible(true);
                     shopAPI = shopAPIMethod.invoke(null);
                 } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException |
                          InvocationTargetException e) {
-                    SlimeGlue.logger().w("Unable to integrate Quickshop-Reremake " + version + ", Please update to latest version!");
+                    SlimeGlue.logger().w("Unable to integrate QuickShop-Hikari " + version + ", Please update to latest version!");
                     throw e;
                 }
 
@@ -131,25 +131,25 @@ public class QuickShopModule extends ACompatibilityModule {
                     // For 5.0.0-
                     try {
                         
-                        qsMethod = Class.forName("com.ghostchu.quickshop.api.shop").getDeclaredMethod("getShop", Location.class);
+                        qsMethod = Class.forName("com.ghostchu.quickshop.api.shop.Shop").getDeclaredMethod("getShop", Location.class);
                         qsMethod.setAccessible(true);
                     } catch (ClassNotFoundException | NoSuchMethodException e) {
-                        SlimeGlue.logger().w("Unable to integrate Quickshop-Reremake " + version + ", Please update to latest version!");
+                        SlimeGlue.logger().w("Unable to integrate QuickShop-Hikari " + version + ", Please update to latest version!");
                         throw e;
                     }
                 } else {
                     // For 4.0.8-
                     try {
-                        qsMethod = Class.forName("com.ghostchu.quickshop.api.shop").getDeclaredMethod("getShopWithCaching", Location.class);
+                        qsMethod = Class.forName("com.ghostchu.quickshop.api.shop.Shop").getDeclaredMethod("getShopWithCaching", Location.class);
                         qsMethod.setAccessible(true);
                     } catch (ClassNotFoundException | NoSuchMethodException e) {
-                        SlimeGlue.logger().w("Unable to integrate Quickshop-Reremake " + version + ", Please update to latest version!");
+                        SlimeGlue.logger().w("Unable to integrate QuickShop-Hikari " + version + ", Please update to latest version!");
                         throw e;
                     }
                 }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            SlimeGlue.logger().w("Unable to parse version code of Quickshop-Reremake " + version);
+            SlimeGlue.logger().w("Unable to parse version code of QuickShop-Hikari " + version);
             throw e;
         }
     }
